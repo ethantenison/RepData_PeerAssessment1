@@ -47,16 +47,20 @@ Imputing missing values
 
     activity_full <- read.csv("activity.csv")
 
+    #1. 
     sum(is.na(activity_full$steps))
 
     ## [1] 2304
 
+    #2. I created a for loop that checks if the value for steps is NA, and if so, it changes the value to
+    #correspond to the average steps for that interval. 
     for (i in 1:length(activity_full$steps)){
             if (is.na(activity_full$steps[i] == TRUE)){        
             activity_full$steps[i] <- time_interval$interval_avg_steps[match(activity_full$interval[i], time_interval$interval)]  
             } 
     }
 
+    #3. 
     steps_perday2 <- activity_full %>% group_by(date) %>% summarise(total_steps = sum(steps))
 
     g <- ggplot(steps_perday2, aes(total_steps))
@@ -64,6 +68,7 @@ Imputing missing values
 
 ![](PA1_template_files/figure-markdown_strict/unnamed-chunk-2-1.png)
 
+    #4mean and median 
     mean(steps_perday2$total_steps)
 
     ## [1] 10766.19
