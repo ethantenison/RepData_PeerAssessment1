@@ -89,7 +89,7 @@ Are there differences in activity patterns between weekdays and weekends?
 
     wtime_interval <- activity_full %>% group_by(interval, datetype) %>% summarise(Average_steps = mean(steps))
 
-    ggplot(data = wtime_interval, aes(x = interval, y = Average_steps))+
-      geom_line(color = "#00AFBB", size = .5) + facet_wrap(~datetype, nrow=2)
+    ggplot(data = wtime_interval, aes(x = interval, y = Average_steps, color = datetype))+
+      geom_line(size = .5) + facet_wrap(~datetype, nrow=2)
 
 ![](PA1_template_files/figure-markdown_strict/unnamed-chunk-3-1.png)
