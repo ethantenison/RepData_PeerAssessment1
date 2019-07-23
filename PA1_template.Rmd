@@ -69,3 +69,23 @@ median(steps_perday2$total_steps)
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}
+
+activity_full$date <- ymd(activity_full$date)
+
+activity_full$datetype <- sapply(activity_full$date, function(x) {
+        if (weekdays(x) == "Saturday" | weekdays(x) =="Sunday") 
+                {y <- "Weekend"} else 
+                {y <- "Weekday"}
+                y
+        })
+
+activity_full$datetype <- as.factor(activity_full$datetype)
+
+
+wtime_interval <- activity_full %>% group_by(interval, datetype) %>% summarise(Average_steps = mean(steps))
+
+ggplot(data = wtime_interval, aes(x = interval, y = Average_steps))+
+  geom_line(color = "#00AFBB", size = .5) + facet_wrap(~datetype, nrow=2)
+
+```
